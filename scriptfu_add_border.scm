@@ -17,19 +17,22 @@
     SF-DRAWABLE "Drawable"  0
     SF-COLOR  "Color of inner border"         '(255 255 255)   ;inFirstBorderColor
     SF-COLOR  "Color of outer border"         '(172 172 172)   ;inSecondBorderColor
-    SF-ADJUSTMENT  "Width of inner border"     '(2 1 500 1 1 0 1) ;ininFirstBorderSize
-    SF-ADJUSTMENT  "Width of outer border"     '(1 1 500 1 1 0 1) ;ininSecondBorderSize
+    SF-ADJUSTMENT  "Width of inner border"     '(2 1 500 1 1 0 1) ;inFirstBorderSize
+    SF-ADJUSTMENT  "Width of outer border"     '(1 1 500 1 1 0 1) ;inSecondBorderSize
 )
 (script-fu-menu-register "script-fu-add-bicolored-frame" "<Image>/Filters/Decor")
 (define (script-fu-add-bicolored-frame inImage inDrawable inFirstBorderColor inSecondBorderColor inFirstBorderSize inSecondBorderSize)
+    ;Group actions
+    (gimp-image-undo-group-start inImage)
+    ; Add borders
     (let*
         (
             (ImageWidth (car(gimp-image-width inImage)))
             (ImageHeight (car(gimp-image-height inImage)))
-            (FirstBorderWidth (+ ImageWidth  inFirstBorderSize inFirstBorderSize))
-            (FirstBorderHeight (+ ImageHeight inFirstBorderSize inFirstBorderSize))
-            (SecondBorderWidth (+ FirstBorderWidth inSecondBorderSize inSecondBorderSize))
-            (SecondBorderHeight (+ FirstBorderHeight inSecondBorderSize inSecondBorderSize))
+            (FirstBorderWidth (+ ImageWidth  (* inFirstBorderSize 2)))
+            (FirstBorderHeight (+ ImageHeight  (* inFirstBorderSize 2)))
+            (SecondBorderWidth (+ FirstBorderWidth (* inSecondBorderSize 2)))
+            (SecondBorderHeight (+ FirstBorderHeight (* inSecondBorderSize 2)))
             (FirstBorderLayer
                      (car
                           (gimp-layer-new
@@ -57,7 +60,6 @@
                       )
             )
         )
-       
         ;Add Inner Border
         (gimp-selection-all inImage)
         (gimp-image-resize inImage FirstBorderWidth FirstBorderHeight inFirstBorderSize inFirstBorderSize)
@@ -72,6 +74,7 @@
         (gimp-drawable-fill SecondBorderLayer 0)
         ;Clean it up
         (gimp-selection-all inImage)
+	(gimp-image-undo-group-end inImage)
     
     )
 )
