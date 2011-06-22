@@ -29,13 +29,19 @@
             (ImageRatio (/ ImageWidth ImageHeight))
             (ImageSuitableWidth (round (* inScaleHeight ImageRatio)))
             (ImageSuitableHeight (round (/ inScaleWidth ImageRatio))) 
+            (OffsetWidth 0)
+            (OffsetHeight 0)
         )
         
         (if (< ImageRatio (/ inScaleWidth inScaleHeight))
+            (begin 
             (gimp-image-scale inImage inScaleWidth ImageSuitableHeight)
-            (gimp-image-scale inImage ImageSuitableWidth inScaleHeight) ;else
+            (set! OffsetHeight (round (/ (- inScaleHeight ImageSuitableHeight) 2))))
+            (begin  ;else
+            (gimp-image-scale inImage ImageSuitableWidth inScaleHeight)
+            (set! OffsetWidth (round (/ (- inScaleWidth ImageSuitableWidth) 2))))
         )
-        (gimp-image-resize inImage inScaleWidth inScaleHeight 0 0)
+        (gimp-image-resize inImage inScaleWidth inScaleHeight OffsetWidth OffsetHeight)
     )
     (gimp-image-undo-group-end inImage)
 )
