@@ -42,6 +42,7 @@
             (set! OffsetWidth (round (/ (- inScaleWidth ImageSuitableWidth) 2))))
         )
         (gimp-image-resize inImage inScaleWidth inScaleHeight OffsetWidth OffsetHeight)
+        (gimp-image-resize-to-layers inImage)
     )
     (gimp-image-undo-group-end inImage)
 )
