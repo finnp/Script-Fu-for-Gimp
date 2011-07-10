@@ -15,8 +15,8 @@
     "RGB*"
     SF-IMAGE    "Image"  0
     SF-DRAWABLE "Drawable"  0
-    SF-ADJUSTMENT  "New Image Width"     '(150 1 500 1 1 0 1) ;inScaleWidth
-    SF-ADJUSTMENT  "New Image Height"     '(70 1 500 1 1 0 1) ;inScaleHeight
+    SF-ADJUSTMENT  "New Image Width"     '(99 1 500 1 1 0 1) ;inScaleWidth
+    SF-ADJUSTMENT  "New Image Height"     '(64 1 500 1 1 0 1) ;inScaleHeight
 
 )
 (script-fu-menu-register "script-fu-smart-scale" "<Image>/Image")
@@ -42,8 +42,7 @@
             (set! OffsetWidth (round (/ (- inScaleWidth ImageSuitableWidth) 2))))
         )
         (gimp-image-resize inImage inScaleWidth inScaleHeight OffsetWidth OffsetHeight)
-        (gimp-image-resize-to-layers inImage)
+        (gimp-layer-resize-to-image-size inDrawable)
     )
     (gimp-image-undo-group-end inImage)
 )
-
