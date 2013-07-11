@@ -1,1 +1,5 @@
-I am testing github now.
+Includes two scipts for Gimp:
+- scriptfu_add_border: Add a bi-colored border to an image
+- scriptfu_smart_scale: Scale a picture to a fixed width and height
+
+How to install them: http://docs.gimp.org/en/install-script-fu.html
