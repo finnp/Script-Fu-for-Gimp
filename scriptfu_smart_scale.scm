@@ -3,7 +3,7 @@
     "Smart Scale Image"
     "Scales and resizes an image to specific measures."
     "Finn Pauls <ich@finnpauls.de>"
-    "Creative Commons Attribution Noncommercial Share Alike (cc-by-nc-sa) Finn Pauls"
+    "MIT License"
     "June 13, 2011"
     "RGB*"
     SF-IMAGE    "Image"  0
